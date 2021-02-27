@@ -16,7 +16,7 @@ const passport      = require('passport');
 require('./configs/passport');
 
 mongoose
-  .connect('mongodb://localhost/flavors-server', {useNewUrlParser: true})
+  .connect(process.env.MONGODB_URI, {useNewUrlParser: true})
   .then(x => {
     console.log(`Connected to Mongo! Database name: "${x.connections[0].name}"`)
   })
@@ -38,7 +38,8 @@ app.use(cookieParser());
 app.use(
   cors({
     credentials: true,
-    origin: ['http://localhost:3000'] // <== this will be the URL of our React app (it will be running on port 3000)
+    origin: [process.env.FRONTEND_POINT], // <== this will be the URL of our React app (it will be running on port 3000)
+    credentials: true
   })
 );
 
