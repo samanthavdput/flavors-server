@@ -38,10 +38,14 @@ app.use(cookieParser());
 app.use(
   cors({
     credentials: true,
-    origin: [process.env.FRONTEND_POINT], // <== this will be the URL of our React app (it will be running on port 3000)
-    credentials: true
+    origin: [process.env.CORS_ALLOWED], // <== this will be the URL of our React app (it will be running on port 3000)
   })
 );
+
+app.use('/', (req, res, next) => {
+  console.log(process.env.CORS_ALLOWED);
+  next();
+});
 
 // Express View engine setup
 
@@ -62,7 +66,12 @@ app.use(favicon(path.join(__dirname, 'public', 'images', 'favicon.ico')));
 app.use(session({
   secret:"ironducks jumping through the mountains",
   resave: true,
-  saveUninitialized: true
+  saveUninitialized: true,
+  cookie: {
+    sameSite: 'none',
+    httpOnly: true,
+    maxAge: 60000
+  }
 }));
 
 
