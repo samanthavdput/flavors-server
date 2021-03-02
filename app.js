@@ -9,7 +9,6 @@ const mongoose     = require('mongoose');
 const logger       = require('morgan');
 const path         = require('path');
 const cors         = require('cors');
-
 const session       = require('express-session');
 const passport      = require('passport');
 
@@ -42,10 +41,11 @@ app.use(
   })
 );
 
-app.use('/', (req, res, next) => {
-  console.log(process.env.CORS_ALLOWED);
-  next();
-});
+// app.use('/', (req, res, next) => {
+//   console.log(process.env.CORS_ALLOWED);
+//   next();
+// });
+
 
 // Express View engine setup
 
