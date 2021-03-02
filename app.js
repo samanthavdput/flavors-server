@@ -62,17 +62,20 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(favicon(path.join(__dirname, 'public', 'images', 'favicon.ico')));
 
 
-// ADD SESSION SETTINGS HERE:
+// SESSION SETTINGS:
 app.use(session({
   secret:"ironducks jumping through the mountains",
   resave: true,
   saveUninitialized: true,
+  ttl: 60 * 60 * 24,
   cookie: {
-    sameSite: 'none',
-    httpOnly: true,
-    maxAge: 60000
+    secure: process.env.NODE_ENV === "production",
+    sameSite: process.env.NODE_ENV === "production" ? 'none' : 'lax',
+    maxAge: 60000000
   }
 }));
+
+app.set('trust proxy', 1); // trust first proxy (https://stackoverflow.com/questions/63397851/cookie-is-not-get-saved-in-chrome-even-after-setting-samesitenone-and-secure)
 
 
 // USE passport.initialize() and passport.session() HERE:
