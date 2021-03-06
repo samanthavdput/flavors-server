@@ -5,6 +5,7 @@ const cupcakeSchema = new Schema({
   name: String,
   description: String,
   ingredients: String,
+  imageUrl: { type: String, required: true },
   flavorlist: {
     type: Schema.Types.ObjectId,
     ref: 'Flavorlist'

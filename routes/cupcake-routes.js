@@ -6,7 +6,7 @@ const Flavorlist = require('../models/flavorlist-model');
 const router = express.Router();
  
 // GET route => to retrieve a specific cupcake
-router.get('/flavorlists/:flavorlistId/cupcakes/:cupcakeId', (req, res, next) => {
+router.get('/flavorlists/:id/cupcakes/:cupcakeId', (req, res, next) => {
   Cupcake.findById(req.params.cupcakeId)
     .then(cupcake => {
       res.json(cupcake);
@@ -19,9 +19,10 @@ router.get('/flavorlists/:flavorlistId/cupcakes/:cupcakeId', (req, res, next) =>
 // POST route => to create a new cupcake
 router.post('/cupcakes', (req, res, next) => {
   Cupcake.create({
-    name: req.body.title,
+    name: req.body.name,
     description: req.body.description,
     ingredients: req.body.ingredients,
+    imageUrl: req.body.imageUrl,
     flavorlist: req.body.flavorlistID
   })
     .then(newCupcake => {
