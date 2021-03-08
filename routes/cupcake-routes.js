@@ -17,7 +17,7 @@ router.get('/flavorlists/:id/cupcakes/:cupcakeId', (req, res, next) => {
 });
  
 // POST route => to create a new cupcake
-router.post('/cupcakes', (req, res, next) => {
+router.post('/flavorlists/:id/cupcakes', (req, res, next) => {
   Cupcake.create({
     name: req.body.name,
     description: req.body.description,
@@ -39,15 +39,15 @@ router.post('/cupcakes', (req, res, next) => {
 });
  
 // PUT route => to update a specific cupcake
-router.put('/cupcakes/:id', (req, res, next) => {
+router.put('/flavorlists/:id/cupcakes/:cupcakeId', (req, res, next) => {
   if (!mongoose.Types.ObjectId.isValid(req.params.id)) {
     res.status(400).json({ message: 'Specified id is not valid' });
     return;
   }
  
-  Cupcake.findByIdAndUpdate(req.params.id, req.body)
+  Cupcake.findByIdAndUpdate(req.params.cupcakeId, req.body)
     .then(() => {
-      res.json({ message: `Cupcake with ${req.params.id} is updated successfully.` });
+      res.json({ message: `Cupcake with ${req.params.cupcakeId} is updated successfully.` });
     })
     .catch(err => {
       res.json(err);
@@ -55,15 +55,15 @@ router.put('/cupcakes/:id', (req, res, next) => {
 });
  
 // DELETE route => to delete a specific cupcake
-router.delete('/cupcakes/:id', (req, res, next) => {
+router.delete('/flavorlists/:id/cupcakes/:cupcakeId', (req, res, next) => {
   if (!mongoose.Types.ObjectId.isValid(req.params.id)) {
     res.status(400).json({ message: 'Specified id is not valid' });
     return;
   }
  
-  Cupcake.findByIdAndRemove(req.params.id)
+  Cupcake.findByIdAndRemove(req.params.cupcakeId)
     .then(() => {
-      res.json({ message: `Cupcake with ${req.params.id} is removed successfully.` });
+      res.json({ message: `Cupcake with ${req.params.cupcakeId} is removed successfully.` });
     })
     .catch(error => {
       res.json(error);
