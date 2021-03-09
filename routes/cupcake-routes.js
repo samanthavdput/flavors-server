@@ -17,7 +17,7 @@ router.get('/flavorlists/:id/cupcakes/:cupcakeId', (req, res, next) => {
 });
  
 // POST route => to create a new cupcake
-router.post('/flavorlists/:id/cupcakes', (req, res, next) => {
+router.post('/cupcakes', (req, res, next) => {
   Cupcake.create({
     name: req.body.name,
     description: req.body.description,
